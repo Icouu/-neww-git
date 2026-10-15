@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36429.23 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ico", "ico\ico.csproj", "{F7B890D2-FF54-48FF-9383-D10D70F79E62}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7B890D2-FF54-48FF-9383-D10D70F79E62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7B890D2-FF54-48FF-9383-D10D70F79E62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7B890D2-FF54-48FF-9383-D10D70F79E62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7B890D2-FF54-48FF-9383-D10D70F79E62}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {18825F4F-D729-48AB-AA9A-29E9814EA1E6}
+	EndGlobalSection
+EndGlobal
