@@ -5,14 +5,11 @@ namespace ico
 {
     class TodoTask
     {
-        // 1. Добавяме свойството за уникално ID
         public int Id { get; set; }
         public string Zaglavie { get; set; }
         public string Opisanie { get; set; }
         public DateTime KraenSrok { get; set; }
         public bool Izpulnena { get; set; }
-
-        // Обновяваме конструктора, за да приема ID
         public TodoTask(int id, string zaglavie, string opisanie, DateTime kraenSrok)
         {
             Id = id;
@@ -33,7 +30,6 @@ namespace ico
         static void TodoManager()
         {
             List<TodoTask> tasks = new List<TodoTask>();
-            // Брояч, който ще дава уникално ID на всяка нова задача
             int nextId = 1;
 
             while (true)
@@ -69,7 +65,7 @@ namespace ico
                         continue;
                     }
 
-                    // Подаваме текущото nextId и след това го увеличаваме с 1 (nextId++)
+                    
                     TodoTask task = new TodoTask(
                         nextId++,
                         zaglavie,
@@ -90,7 +86,7 @@ namespace ico
                     {
                         foreach (var t in tasks)
                         {
-                            // Изписваме реалното ID на задачата
+                          
                             Console.WriteLine("\nZadacha ID: " + t.Id);
                             Console.WriteLine("Zaglavie: " + t.Zaglavie);
                             Console.WriteLine("Opisanie: " + t.Opisanie);
