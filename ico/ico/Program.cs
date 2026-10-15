@@ -5,13 +5,17 @@ namespace ico
 {
     class TodoTask
     {
+        // 1. Добавяме свойството за уникално ID
+        public int Id { get; set; }
         public string Zaglavie { get; set; }
         public string Opisanie { get; set; }
         public DateTime KraenSrok { get; set; }
         public bool Izpulnena { get; set; }
 
-        public TodoTask(string zaglavie, string opisanie, DateTime kraenSrok)
+        // Обновяваме конструктора, за да приема ID
+        public TodoTask(int id, string zaglavie, string opisanie, DateTime kraenSrok)
         {
+            Id = id;
             Zaglavie = zaglavie;
             Opisanie = opisanie;
             KraenSrok = kraenSrok;
@@ -29,6 +33,8 @@ namespace ico
         static void TodoManager()
         {
             List<TodoTask> tasks = new List<TodoTask>();
+            // Брояч, който ще дава уникално ID на всяка нова задача
+            int nextId = 1;
 
             while (true)
             {
@@ -46,7 +52,6 @@ namespace ico
                 {
                     break;
                 }
-
                 if (choice == "5")
                 {
                     Console.Write("Vuvedi zaglavie: ");
@@ -64,15 +69,16 @@ namespace ico
                         continue;
                     }
 
+                    // Подаваме текущото nextId и след това го увеличаваме с 1 (nextId++)
                     TodoTask task = new TodoTask(
+                        nextId++,
                         zaglavie,
                         opisanie,
                         kraenSrok
                     );
-
                     tasks.Add(task);
 
-                    Console.WriteLine("Zadachata e dobavena!");
+                    Console.WriteLine($"Zadachata e dobavena s ID: {task.Id}!");
                 }
                 else if (choice == "4")
                 {
@@ -82,15 +88,15 @@ namespace ico
                     }
                     else
                     {
-                        for (int i = 0; i < tasks.Count; i++)
+                        foreach (var t in tasks)
                         {
-                            Console.WriteLine("\nZadacha №" + (i + 1));
-                            Console.WriteLine("Zaglavie: " + tasks[i].Zaglavie);
-                            Console.WriteLine("Opisanie: " + tasks[i].Opisanie);
-                            Console.WriteLine("Kraen srok: " +
-                                tasks[i].KraenSrok.ToShortDateString());
+                            // Изписваме реалното ID на задачата
+                            Console.WriteLine("\nZadacha ID: " + t.Id);
+                            Console.WriteLine("Zaglavie: " + t.Zaglavie);
+                            Console.WriteLine("Opisanie: " + t.Opisanie);
+                            Console.WriteLine("Kraen srok: " + t.KraenSrok.ToShortDateString());
 
-                            if (tasks[i].Izpulnena)
+                            if (t.Izpulnena)
                             {
                                 Console.WriteLine("Status: Izpulnena");
                             }
@@ -108,19 +114,27 @@ namespace ico
                         Console.WriteLine("Nqma zadachi za markirane!");
                         continue;
                     }
+                    Console.Write("Vuvedi ID на zadachata: ");
+                    int tursenoId;
 
-                    Console.Write("Vuvedi nomer na zadachata: ");
-                    int nomer;
-
-                    if (int.TryParse(Console.ReadLine(), out nomer) &&
-                        nomer >= 1 && nomer <= tasks.Count)
+                    if (int.TryParse(Console.ReadLine(), out tursenoId))
                     {
-                        tasks[nomer - 1].Izpulnena = true;
-                        Console.WriteLine("Zadachata e markirana kato izpulnena!");
+                       
+                        TodoTask taskToMark = tasks.Find(t => t.Id == tursenoId);
+
+                        if (taskToMark != null)
+                        {
+                            taskToMark.Izpulnena = true;
+                            Console.WriteLine("Zadachata e markirana kato izpulnena!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Zadacha с такова ID не съществува!");
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("Nevaliden nomer!");
+                        Console.WriteLine("Nevaliden format на ID!");
                     }
                 }
                 else if (choice == "3")
@@ -130,19 +144,26 @@ namespace ico
                         Console.WriteLine("Nqma zadachi za iztrivane!");
                         continue;
                     }
+                    Console.Write("Vuvedi ID на zadachata za iztrivane: ");
+                    int tursenoId;
 
-                    Console.Write("Vuvedi nomer na zadachata za iztrivane: ");
-                    int nomer;
-
-                    if (int.TryParse(Console.ReadLine(), out nomer) &&
-                        nomer >= 1 && nomer <= tasks.Count)
+                    if (int.TryParse(Console.ReadLine(), out tursenoId))
                     {
-                        tasks.RemoveAt(nomer - 1);
-                        Console.WriteLine("Zadachata e iztrita!");
+                        TodoTask taskToRemove = tasks.Find(t => t.Id == tursenoId);
+
+                        if (taskToRemove != null)
+                        {
+                            tasks.Remove(taskToRemove);
+                            Console.WriteLine("Zadachata e iztrita!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Zadacha с такова ID не съществува!");
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("Nevaliden nomer!");
+                        Console.WriteLine("Nevaliden format на ID!");
                     }
                 }
                 else if (choice != "2" && choice != "5")
@@ -150,9 +171,7 @@ namespace ico
                     Console.WriteLine("Nevalidna opciq!");
                 }
             }
-
             Console.WriteLine("Programata e prekratena.");
         }
     }
 }
-
